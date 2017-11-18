@@ -388,7 +388,7 @@ ssize_t goodix_tool_write(struct file *filp, const char __user *buff, size_t len
 			GTP_ERROR("copy_from_user failed.");
 			return -EPERM;
 		}
-		memcpy(IC_TYPE, cmd_head.data, cmd_head.data_len);
+		memcpy(ic_type, cmd_data, cmd_head.data_len);
 
 		register_i2c_func();
 	} else if (5 == cmd_head.wr) {
@@ -481,7 +481,7 @@ ssize_t goodix_tool_read(struct file *file, char __user *page, size_t size, loff
 
 		}
 
-		memcpy(cmd_head.data, cmd_head.addr, cmd_head.addr_len);
+		memcpy(cmd_data, cmd_head.addr, cmd_head.addr_len);
 
 		GTP_DEBUG("[CMD HEAD DATA] ADDR:0x%02x%02x.", cmd_head.data[0], cmd_head.data[1]);
 		GTP_DEBUG("[CMD HEAD ADDR] ADDR:0x%02x%02x.", cmd_head.addr[0], cmd_head.addr[1]);
@@ -503,7 +503,6 @@ ssize_t goodix_tool_read(struct file *file, char __user *page, size_t size, loff
 				GTP_ERROR("[READ]Read data failed!");
 				return -EPERM;
 			}
-
 
 			ret = simple_read_from_buffer(&page[loc], size, ppos, &cmd_head.data[GTP_ADDR_LENGTH], len);
 			if (ret < 0) {

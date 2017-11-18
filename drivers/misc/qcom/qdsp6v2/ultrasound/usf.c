@@ -1558,6 +1558,7 @@ static long __usf_ioctl(struct usf_type *usf,
 		unsigned int cmd,
 		unsigned long arg)
 {
+
 	int rc = 0;
 	struct usf_xx_type *usf_xx = NULL;
 

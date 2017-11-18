@@ -997,7 +997,7 @@ void msm_isp_notify(struct vfe_device *vfe_dev, uint32_t event_type,
 			spin_unlock_irqrestore(&vfe_dev->common_data->
 				common_dev_data_lock, flags);
 		} else {
-			if (frame_src == VFE_PIX_0) {
+			if (frame_src <= VFE_RAW_2) {
 				msm_isp_check_for_output_error(vfe_dev, ts,
 					&event_data.u.sof_info);
 			}
@@ -1686,8 +1686,8 @@ int msm_isp_cfg_offline_ping_pong_address(struct vfe_device *vfe_dev,
 		rc = vfe_dev->buf_mgr->ops->get_buf_by_index(
 			vfe_dev->buf_mgr, bufq_handle, buf_idx, &buf);
 		if (rc < 0 || !buf) {
-			pr_err("%s: No fetch buffer rc= %d buf= %p\n",
-				__func__, rc, buf);
+			pr_err("%s: No fetch buffer rc= %d\n",
+				__func__, rc);
 			return -EINVAL;
 		}
 
